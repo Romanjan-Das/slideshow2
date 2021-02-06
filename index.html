@@ -19,13 +19,16 @@
         var numberOfSlides;
         var slideControls;
         var slideshowTimer;
-        var slideNumber = 1;
+        var slideNumber = 0;
         var slidePointers = [];
+        var bodyClientWidth;
+
         function checkDimensionChange(){
-            if(slideWidth != document.getElementsByClassName("image_slideshow")[0].clientWidth){
-                slideWidth = document.getElementsByClassName("image_slideshow")[0].clientWidth;
-                console.log("dimensions changed" + slideWidth);
+            if(bodyClientWidth != document.body.clientWidth){
+                bodyClientWidth = document.body.clientWidth;
+                console.log("dimensions changed" + bodyClientWidth);
                 //slideshowInitialise();
+                resetTheDimensions();
             }
         }
         function slideshowInitialise(){
@@ -33,9 +36,10 @@
             imageSlideshow.style.width=parseInt(imageSlideshow.parentElement.clientWidth)+"px";
             imageSlideshow.style.padding="0px";
             slideWidth = imageSlideshow.clientWidth;
+            bodyClientWidth = document.body.clientWidth;
             checkDimIntv = setInterval(() => {
                 checkDimensionChange();
-            }, 200);
+            }, 500);
             imageSlideshow.style.height = slideWidth*7/10 + "px";
             imageSlideshow.style.overflow="hidden";
             slidesContainer = document.getElementsByClassName("slide_container")[0];
@@ -115,27 +119,27 @@
         }
         function startsTheInterval(){
             slideshowTimer = setInterval(() => {
+                slideNumber++;
+                if(slideNumber>numberOfSlides-1){
+                    slideNumber=0;
+                }
                 slidesContainer.style.transform="translateX(-"+slideWidth*slideNumber+"px)";
                 for(i=0;i<numberOfSlides;i++){
                     document.getElementsByClassName("slide_pointers")[i].style.backgroundColor = "white";
                 }
                 document.getElementsByClassName("slide_pointers")[slideNumber].style.backgroundColor = "gainsboro";
-                slideNumber++;
-                if(slideNumber>numberOfSlides-1){
-                    slideNumber=0;
-                }
             }, 2000);
         }
         function nextSlide(){
+            slideNumber++;
+                if(slideNumber>numberOfSlides-1){
+                    slideNumber=0;
+                }
             slidesContainer.style.transform="translateX(-"+slideWidth*slideNumber+"px)";
                 for(i=0;i<numberOfSlides;i++){
                     document.getElementsByClassName("slide_pointers")[i].style.backgroundColor = "white";
                 }
                 document.getElementsByClassName("slide_pointers")[slideNumber].style.backgroundColor = "gainsboro";
-                slideNumber++;
-                if(slideNumber>numberOfSlides-1){
-                    slideNumber=0;
-                }
         }
         function prevSlide(){
             slideNumber=slideNumber-1;
@@ -158,6 +162,9 @@
                 }
                 document.getElementsByClassName("slide_pointers")[slideNumber].style.backgroundColor = "gainsboro";
             console.log(str);
+        }
+        function resetTheDimensions(){
+            console.log(document.getElementsByClassName("image_slideshow")[0].parentElement.clientWidth);
         }
     </script>
 </head>
