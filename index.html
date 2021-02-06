@@ -5,12 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Slideshow</title>
-    <style>
-        .image_slideshow{
-            background-color: slategrey;
-        }
-        
-    </style>
     <script>
         var checkDimIntv;
         var slideWidth;
@@ -26,7 +20,7 @@
         function checkDimensionChange(){
             if(bodyClientWidth != document.body.clientWidth){
                 bodyClientWidth = document.body.clientWidth;
-                console.log("dimensions changed" + bodyClientWidth);
+                //console.log("dimensions changed" + bodyClientWidth);
                 //slideshowInitialise();
                 resetTheDimensions();
             }
@@ -164,13 +158,54 @@
             console.log(str);
         }
         function resetTheDimensions(){
-            console.log(document.getElementsByClassName("image_slideshow")[0].parentElement.clientWidth);
+            slideWidth = document.getElementsByClassName("image_slideshow")[0].parentElement.clientWidth;
+            imageSlideshow.style.width=slideWidth+"px";
+            imageSlideshow.style.height = slideWidth*7/10 + "px";
+            slidesContainer.style.height=slideWidth*6/10+"px";
+            slidesContainer.style.width=(numberOfSlides*slideWidth+1)+"px";
+            for(i=0;i<numberOfSlides;i++){
+                document.getElementsByClassName("slides")[i].style.width=slideWidth+"px";
+                document.getElementsByClassName("slides")[i].style.height=slideWidth*6/10+"px";
+            }
+            slideControls.style.height=slideWidth/10+"px";
+            slideControls.style.width=slideWidth+"px";
+            document.getElementsByClassName("slide_control_icon")[0].style.width = slideWidth/10+"px";
+            document.getElementsByClassName("slide_control_icon")[0].style.height = slideWidth/10+"px";
+
+            document.getElementsByClassName("slide_control_icon")[1].style.width = slideWidth/10+"px";
+            document.getElementsByClassName("slide_control_icon")[1].style.height = slideWidth/10+"px";
+
+            document.getElementsByClassName("slide_control_pointer_bar")[0].style.width = (slideWidth - slideWidth/5)+"px";
+            document.getElementsByClassName("slide_control_pointer_bar")[0].style.height = slideWidth/10+"px";
+            
+            document.getElementsByClassName("slide_control_icon_img")[0].style.width = slideWidth/20+"px";
+            document.getElementsByClassName("slide_control_icon_img")[0].style.height = slideWidth/20+"px";
+            document.getElementsByClassName("slide_control_icon_img")[0].style.margin = slideWidth/40+"px";
+            document.getElementsByClassName("slide_control_icon_img")[1].style.width = slideWidth/20+"px";
+            document.getElementsByClassName("slide_control_icon_img")[1].style.height = slideWidth/20+"px";
+            document.getElementsByClassName("slide_control_icon_img")[1].style.margin = slideWidth/40+"px";
+
+            for(i=0;i<numberOfSlides;i++){
+                document.getElementsByClassName("slide_pointers")[i].style.width = slideWidth/25+"px";
+                document.getElementsByClassName("slide_pointers")[i].style.height = slideWidth/25+"px";
+                document.getElementsByClassName("slide_pointers")[i].style.marginLeft = slideWidth/50+"px";
+            }
+            
+            document.getElementsByClassName("slide_control_pointer_container")[0].style.width = (slideWidth/16 + slideWidth/50)*numberOfSlides+"px";
+            document.getElementsByClassName("slide_control_pointer_container")[0].style.height = slideWidth/10+"px";     
+            document.getElementsByClassName("slide_control_pointer_container")[0].style.padding = slideWidth/50+"px";
+
+            slidesContainer.style.transform="translateX(-"+slideWidth*slideNumber+"px)";
         }
     </script>
 </head>
 <body onload="slideshowInitialise();">
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <div style="position: static; width: 48vw; height: 48vw; padding: 0px; background-color: gainsboro; left: 1vw; top: 1vw; margin-left: 10vw;">
+        
+        
+        
+        <!----------------------------------------------Slideshow--------------------------------------------->
         <div class="image_slideshow">
             <div class="slide_container">
                 <img class="slides" src="images/slide(1).jpg" alt="">
@@ -188,6 +223,11 @@
                 <div class="slide_control_icon"><img class="slide_control_icon_img" src="images/slide_right_img.svg" alt=""></div>
             </div>
         </div>
+        <!---------------------------------------------------------------------------------------------------->
+    
+    
+    
+    
     </div>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </body>
