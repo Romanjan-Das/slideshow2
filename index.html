@@ -16,6 +16,9 @@
         var slideNumber = 0;
         var slidePointers = [];
         var bodyClientWidth;
+        var touchStartX=0;
+        var touchmoveX=0;
+        var touchStatusBool=true;
 
         function checkDimensionChange(){
             if(bodyClientWidth != document.body.clientWidth){
@@ -71,11 +74,32 @@
             resetTheDimensions();
             startsTheInterval();
             imageSlideshow.addEventListener("mouseover",clearsTheInterval,false);
-            imageSlideshow.addEventListener("touchstart",clearsTheInterval,false);
+            //imageSlideshow.addEventListener("touchstart",clearsTheInterval,false);
             imageSlideshow.addEventListener("mouseout",startsTheInterval,false);
+            slidesContainer.setAttribute("ontouchstart","ontouchstartEvent(event);");
+            slidesContainer.setAttribute("ontouchmove","ontouchmoveEvent(event);");
+            slidesContainer.setAttribute("ontouchend","touchStatusBool=true;");
             document.getElementsByClassName("slide_control_icon")[0].addEventListener("click",prevSlide,false);
             document.getElementsByClassName("slide_control_icon")[1].addEventListener("click",nextSlide,false);
             document.getElementsByClassName("image_slideshow")[0].style.display="block";
+        }
+        function ontouchstartEvent(event){
+            clearsTheInterval();
+            touchStartX = event.touches[0].clientX;
+        }
+        function ontouchmoveEvent(event){
+            if(touchStartX-event.touches[0].clientX>slideWidth/5 && touchStatusBool){
+                if(slideNumber!=numberOfSlides-1){
+                    nextSlide();
+                }
+                touchStatusBool = false;
+            }
+            if(event.touches[0].clientX-touchStartX>slideWidth/5 && touchStatusBool){
+                if(slideNumber!=0){
+                    prevSlide();
+                }
+                touchStatusBool = false;
+            }
         }
         function clearsTheInterval(){
             clearInterval(slideshowTimer);
