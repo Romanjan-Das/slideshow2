@@ -19,6 +19,9 @@
         var touchStartX=0;
         var touchmoveX=0;
         var touchStatusBool=true;
+        var imgHoverStatus=[];
+        var forSlidePointers="";
+        var forSlidePointers2="";
 
         function checkDimensionChange(){
             if(bodyClientWidth != document.body.clientWidth){
@@ -62,8 +65,13 @@
                 document.getElementsByClassName("slide_pointers")[i].style.float = "left";
                 document.getElementsByClassName("slide_pointers")[i].id="slide_pointer_"+i;
                 document.getElementsByClassName("slide_pointers")[i].setAttribute("onclick","gotoSlide(this);");
+                forSlidePointers="document.getElementsByClassName(\"slide_pointers\")["+i+"].style.borderColor= \"slategrey\";"
+                forSlidePointers2="document.getElementsByClassName(\"slide_pointers\")["+i+"].style.borderColor= \"gainsboro\";"
+                document.getElementsByClassName("slide_pointers")[i].setAttribute("onmouseover",forSlidePointers);
+                document.getElementsByClassName("slide_pointers")[i].setAttribute("onmouseout",forSlidePointers2);
             }
             
+
             document.getElementsByClassName("slide_control_pointer_container")[0].style.margin = "auto";
             document.getElementsByClassName("slide_control_pointer_container")[0].style.boxSizing = "border-box";
 
@@ -78,9 +86,17 @@
             imageSlideshow.addEventListener("mouseout",startsTheInterval,false);
             slidesContainer.setAttribute("ontouchstart","ontouchstartEvent(event);");
             slidesContainer.setAttribute("ontouchmove","ontouchmoveEvent(event);");
-            slidesContainer.setAttribute("ontouchend","touchStatusBool=true;");
+            slidesContainer.setAttribute("ontouchend","touchStatusBool=true;startsTheInterval();");
             document.getElementsByClassName("slide_control_icon")[0].addEventListener("click",prevSlide,false);
             document.getElementsByClassName("slide_control_icon")[1].addEventListener("click",nextSlide,false);
+            document.getElementsByClassName("slide_control_icon_img")[0].style.opacity = "0.25";
+            document.getElementsByClassName("slide_control_icon_img")[1].style.opacity = "0.25";
+            imgHoverStatus[0]=document.getElementsByClassName("slide_control_icon")[0];
+            imgHoverStatus[0].addEventListener("mouseover",function(){document.getElementsByClassName("slide_control_icon_img")[0].style.opacity = "1";},false);
+            imgHoverStatus[0].addEventListener("mouseout",function(){document.getElementsByClassName("slide_control_icon_img")[0].style.opacity = "0.25";},false);
+            imgHoverStatus[1]=document.getElementsByClassName("slide_control_icon")[1];
+            imgHoverStatus[1].addEventListener("mouseover",function(){document.getElementsByClassName("slide_control_icon_img")[1].style.opacity = "1";},false);
+            imgHoverStatus[1].addEventListener("mouseout",function(){document.getElementsByClassName("slide_control_icon_img")[1].style.opacity = "0.25";},false);
             document.getElementsByClassName("image_slideshow")[0].style.display="block";
         }
         function ontouchstartEvent(event){
@@ -115,7 +131,7 @@
                     document.getElementsByClassName("slide_pointers")[i].style.backgroundColor = "white";
                 }
                 document.getElementsByClassName("slide_pointers")[slideNumber].style.backgroundColor = "gainsboro";
-            }, 2000);
+            }, 3000);
         }
         function nextSlide(){
             slideNumber++;
@@ -148,7 +164,6 @@
                     document.getElementsByClassName("slide_pointers")[i].style.backgroundColor = "white";
                 }
                 document.getElementsByClassName("slide_pointers")[slideNumber].style.backgroundColor = "gainsboro";
-            console.log(str);
         }
         function resetTheDimensions(){
             slideWidth = document.getElementsByClassName("image_slideshow")[0].parentElement.clientWidth;
