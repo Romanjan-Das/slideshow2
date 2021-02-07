@@ -75,6 +75,7 @@
             imageSlideshow.addEventListener("mouseout",startsTheInterval,false);
             document.getElementsByClassName("slide_control_icon")[0].addEventListener("click",prevSlide,false);
             document.getElementsByClassName("slide_control_icon")[1].addEventListener("click",nextSlide,false);
+            document.getElementsByClassName("image_slideshow")[0].style.display="block";
         }
         function clearsTheInterval(){
             clearInterval(slideshowTimer);
@@ -178,7 +179,7 @@
         <!---Put the slideshow inside a div with predefined dimensions,slideshows dimensions depend on the parent width only-------------->
         <!---Only one slideshow can be added,and add the slideshowinitialise function to body onload-------------------------------------->
         <!---Copy the script to the head and place the icon images to the images folder--------------------------------------------------->
-        <div class="image_slideshow">
+        <div class="image_slideshow" style="display:none;">
             <div class="slide_container">
                 <img class="slides" src="images/slide(1).jpg" alt="">
                 <img class="slides" src="images/slide(2).jpg" alt="">
