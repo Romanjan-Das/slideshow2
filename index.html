@@ -159,9 +159,10 @@
                 document.getElementsByClassName("slide_pointers")[i].style.marginLeft = slideWidth/50+"px";
             }
             
-            document.getElementsByClassName("slide_control_pointer_container")[0].style.width = (slideWidth/16 + slideWidth/50)*numberOfSlides+"px";
+            //document.getElementsByClassName("slide_control_pointer_container")[0].style.width = (slideWidth/16 + slideWidth/50)*numberOfSlides+"px";
+            document.getElementsByClassName("slide_control_pointer_container")[0].style.marginLeft= (((slideWidth - slideWidth/5)-(slideWidth/25 + slideWidth/50)*numberOfSlides)/2 - slideWidth/50)+"px";
             document.getElementsByClassName("slide_control_pointer_container")[0].style.height = slideWidth/10+"px";     
-            document.getElementsByClassName("slide_control_pointer_container")[0].style.padding = slideWidth/50+"px";
+            document.getElementsByClassName("slide_control_pointer_container")[0].style.paddingTop = (slideWidth/11 - slideWidth/25)/2+"px";
 
             slidesContainer.style.transform="translateX(-"+slideWidth*slideNumber+"px)";
         }
