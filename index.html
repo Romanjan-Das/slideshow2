@@ -5,6 +5,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Slideshow</title>
+    <style>
+        /** For slideshow loading screen only **/
+        .css_loader {
+            border: 1vmin solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 1vmin solid #3498db;
+            width: 5vmin;
+            height: 5vmin;
+            margin: auto;
+            padding: 0px;
+            animation: spin 700ms linear infinite;
+        }
+
+        .css_helper{
+            width: 50%;
+            height: 40%;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
     <script>
         var checkDimIntv;
         var slideWidth;
@@ -81,9 +109,11 @@
             document.getElementsByClassName("slide_pointers")[0].style.backgroundColor = "gainsboro";
             resetTheDimensions();
             startsTheInterval();
-            imageSlideshow.addEventListener("mouseover",clearsTheInterval,false);
-            //imageSlideshow.addEventListener("touchstart",clearsTheInterval,false);
-            imageSlideshow.addEventListener("mouseout",startsTheInterval,false);
+            if(window.innerHeight<window.innerWidth){
+                imageSlideshow.addEventListener("mouseover",clearsTheInterval,false);
+                imageSlideshow.addEventListener("mouseout",startsTheInterval,false);
+            }
+            
             slidesContainer.setAttribute("ontouchstart","ontouchstartEvent(event);");
             slidesContainer.setAttribute("ontouchmove","ontouchmoveEvent(event);");
             slidesContainer.setAttribute("ontouchend","touchStatusBool=true;startsTheInterval();");
@@ -97,6 +127,8 @@
             imgHoverStatus[1]=document.getElementsByClassName("slide_control_icon")[1];
             imgHoverStatus[1].addEventListener("mouseover",function(){document.getElementsByClassName("slide_control_icon_img")[1].style.opacity = "1";},false);
             imgHoverStatus[1].addEventListener("mouseout",function(){document.getElementsByClassName("slide_control_icon_img")[1].style.opacity = "0.25";},false);
+            document.getElementsByClassName("css_helper")[0].style.display="none";
+            document.getElementsByClassName("css_loader")[0].style.display="none";
             document.getElementsByClassName("image_slideshow")[0].style.display="block";
         }
         function ontouchstartEvent(event){
@@ -210,7 +242,7 @@
 </head>
 <body onload="slideshowInitialise();">
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <div style="position: static; width: 48vw; height: 48vw; padding: 0px; background-color: gainsboro; left: 1vw; top: 1vw; margin-left: 10vw;">
+    <div style="position: static; width: 48vw; height: 60vw; padding: 0px; background-color: gainsboro; left: 1vw; top: 1vw; margin-left: 10vw;">
         
         
         
@@ -218,6 +250,8 @@
         <!---Put the slideshow inside a div with predefined dimensions,slideshows dimensions depend on the parent width only-------------->
         <!---Only one slideshow can be added,and add the slideshowinitialise function to body onload-------------------------------------->
         <!---Copy the script to the head and place the icon images to the images folder--------------------------------------------------->
+        <div class="css_helper"></div>
+        <div class="css_loader"></div>
         <div class="image_slideshow" style="display:none;">
             <div class="slide_container">
                 <img class="slides" src="images/slide(1).jpg" alt="">
